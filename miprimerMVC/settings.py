@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'miprimerMVC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'C:\Users\Maximiliano\Desktop\Coder House\Python\Clase 17  - Django - Portfolio (parte 1)\MVC\Proyecto\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

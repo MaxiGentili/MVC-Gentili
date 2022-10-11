@@ -1,24 +1,34 @@
 from django.http import HttpResponse
 from datetime import datetime, timedelta
-from django.template import Context, Template
+from django.template import Context, Template, loader
+import random
 
-def hola (request):
-    return HttpResponse('Bueeenas')
+from home.models import Persona
 
-def calcular_fecha_nacimiento (request, edad):
-    fecha = datetime.now().year - edad
-    return HttpResponse(f'Tu fecha de nac. aprox. es para tus {edad} años sería: {fecha}')
 
-def mi_template (request):
+def crear_personas(request):
     
-    cargar_archivo = open(r"C:\Users\Maximiliano\Desktop\Coder House\Python\Clase 17  - Django - Portfolio (parte 1)\MVC\Proyecto\templates\template.html", "r")
+    # persona = Persona(nombre=nombre, apellido='Gentili', edad=int(45), fecha_nacimiento=datetime.now())
+    persona1 = Persona(nombre='Gustavo', apellido='Gentili', edad=int(45), fecha_nacimiento=datetime.now())
+    persona2 = Persona(nombre='Silvana', apellido='Marcello', edad=random.randrange(1, 70), fecha_nacimiento=datetime.now())
+    persona3 = Persona(nombre='Carolina', apellido='Nazar', edad=random.randrange(1, 70), fecha_nacimiento=datetime.now())
+    # persona.save()
+    persona1.save()
+    persona2.save()
+    persona3.save()
     
-    template = Template(cargar_archivo.read())
+    template = loader.get_template('crear_personas.html')
+    # template_renderizado = template.render()
+    template_renderizado = template.render({})
     
-    cargar_archivo.close()
+    return HttpResponse(template_renderizado)
+
+
+def ver_personas(request):
+      
+    personas = Persona.objects.all()
     
-    contexto = Context()
-    
-    template_renderizado = template.render(contexto)
+    template = loader.get_template('ver_personas.html')
+    template_renderizado = template.render({'personas': personas})
     
     return HttpResponse(template_renderizado)
